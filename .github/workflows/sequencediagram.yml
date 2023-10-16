@@ -13,28 +13,14 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-
-      - name: Install Graphviz
-        run: sudo apt-get install graphviz
-
-      - name: Download PlantUML JAR
-        run: wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O plantuml.jar
-
-      - name: List current directory
-        run: ls
-
-      - name: List Java source files
-        run: ls src/main/java/com/shashi/personal/automatedpr
+          
+      - name: Download javadoc-uml-doclet JAR
+        run: curl -o javadoc-uml-doclet.jar https://github.com/downloads/nidi3/graphviz-java-api/javadoc-uml-doclet-1.1.jar
 
       - name: Generate PlantUML diagrams
         run: |
           mkdir -p generated-sources/plantuml
-          java -jar plantuml.jar -o generated-sources/plantuml -tsvg src/main/java/com/shashi/personal/automatedpr/AutomatedPR.java
-          
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+          javadoc -docletpath javadoc-uml-doclet.jar -doclet com.github.umlgraph.doclet.UmlGraphDoc -output generated-sources/plantuml src/main/java/com/shashi/personal/automatedpr/*.java
 
       - name: Set Git user
         run: |
