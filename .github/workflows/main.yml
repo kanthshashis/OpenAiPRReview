@@ -20,6 +20,11 @@ jobs:
       - name: Download PlantUML JAR
         run: wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O plantuml.jar
 
+      - name: Set Git user
+        run: |
+          git config --global user.email "kanth.shashi.s@gmail.com"
+          git config --global user.name "kanthshashis"
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
