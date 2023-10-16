@@ -17,6 +17,9 @@ jobs:
       - name: Download javadoc-uml-doclet JAR
         run: curl -o javadoc-uml-doclet.jar https://github.com/downloads/nidi3/graphviz-java-api/javadoc-uml-doclet-1.1.jar
 
+      - name: List Directory
+        run: ls
+
       - name: Generate PlantUML diagrams
         run: |
           mkdir -p generated-sources/plantuml
