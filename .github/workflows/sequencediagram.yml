@@ -23,7 +23,7 @@ jobs:
       - name: Generate PlantUML diagrams
         run: |
           mkdir -p generated-sources/plantuml
-          find src/main/java/com/shashi/personal -name "**/*.java" -print0 | xargs -0 -I {} sh -c 'java -jar plantuml.jar -o generated-sources/plantuml {}'
+          find ssrc/main/java/com/shashi/personal/automatedpr -name "**/*.java" -print0 | xargs -0 -I {} sh -c 'java -jar plantuml.jar -o generated-sources/plantuml {}'
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
