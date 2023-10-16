@@ -23,7 +23,7 @@ jobs:
       - name: Generate PlantUML diagrams
         run: |
           mkdir -p generated-sources/plantuml
-          javadoc -docletpath javadoc-uml-doclet.jar -doclet com.github.umlgraph.doclet.UmlGraphDoc -output generated-sources/plantuml src/main/java/com/shashi/personal/automatedpr/*.java
+          javadoc -cp javadoc-uml-doclet.jar -docletpath javadoc-uml-doclet.jar -doclet com.github.umlgraph.doclet.UmlGraphDoc -output generated-sources/plantuml src/main/java/com/shashi/personal/automatedpr/*.java
 
       - name: Set Git user
         run: |
