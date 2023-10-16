@@ -1,0 +1,43 @@
+name: Generate PlantUML Diagrams
+on: push
+
+jobs:
+  generate-uml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Install Graphviz
+        run: sudo apt-get install graphviz
+
+      - name: Download PlantUML JAR
+        run: wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O plantuml.jar
+
+      - name: Set Git user
+        run: |
+          git config --global user.email "kanth.shashi.s@gmail.com"
+          git config --global user.name "kanthshashis"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Generate PlantUML diagrams
+        run: |
+          mkdir -p generated-sources/plantuml
+          find src/main/java -name "*.java" -print0 | xargs -0 -I {} sh -c 'java -jar plantuml.jar -o generated-sources/plantuml {}'
+      - name: Commit and push generated diagrams
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add generated-sources/plantuml
+          git commit -m "Add generated PlantUML diagrams"
+          git push origin HEAD:${{ github.ref }}
