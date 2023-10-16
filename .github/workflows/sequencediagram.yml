@@ -1,0 +1,39 @@
+name: Generate PlantUML Diagrams
+on: push
+
+jobs:
+  generate-uml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          
+      - name: Download javadoc-uml-doclet JAR
+        run: curl -o javadoc-uml-doclet.jar https://github.com/downloads/nidi3/graphviz-java-api/javadoc-uml-doclet-1.1.jar
+
+      - name: List Directory
+        run: ls
+
+      - name: Generate PlantUML diagrams
+        run: |
+          mkdir -p generated-sources/plantuml
+          javadoc -cp .:javadoc-uml-doclet.jar -docletpath javadoc-uml-doclet.jar -doclet com.github.umlgraph.doclet.UmlGraphDoc -output generated-sources/plantuml src/main/java/com/shashi/personal/automatedpr/*.java
+          
+      - name: Set Git user
+        run: |
+          git config --global user.email "kanth.shashi.s@gmail.com"
+          git config --global user.name "kanthshashis"
+
+      - name: Commit and push generated diagrams
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add generated-sources/plantuml
+          git commit -m "Add generated PlantUML diagrams"
+          git push origin HEAD:${{ github.ref }}
