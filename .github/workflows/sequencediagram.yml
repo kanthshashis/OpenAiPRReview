@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir -p generated-sources/plantuml
           find src/main/java/com/shashi/personal/automatedpr -name "*.java" -print0 | xargs -0 -I {} sh -c 'echo Generating diagram for {}'
-          find src/main/java/com/shashi/personal/automatedpr -name "*.java" -print0 | xargs -0 -I {} sh -c 'java -jar plantuml.jar -o generated-sources/plantuml {}'
+          java -jar plantuml.jar -o generated-sources/plantuml src/main/java/com/shashi/personal/automatedpr/AutomatedPR.java
           
       - name: Set up Node.js
         uses: actions/setup-node@v2
