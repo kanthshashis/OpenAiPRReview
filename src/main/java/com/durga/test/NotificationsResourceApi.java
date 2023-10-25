@@ -12,6 +12,7 @@ public class NotificationsResourceApi {
     @Path("/ping")
     public Response ping() {
         return Response.ok().entity("Service online").build();
+        
     }
 
     @GET
