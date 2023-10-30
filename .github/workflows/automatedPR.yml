@@ -19,3 +19,4 @@ jobs:
           github-pr-id: ${{ github.event.number }}
           dev-lang: java
           openai-max-tokens: 9000
+          openai-engine: "gpt-4-0613"
