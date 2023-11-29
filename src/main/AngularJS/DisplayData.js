@@ -4,7 +4,7 @@
 <body>
 
 <div ng-app="" ng-init="quantity=1;cost=5">
-    <p>Total in dollar: {{ quantity * cost }}</p>
+    <p>Total in dollar test: {{ quantity * cost }}</p>
 </div>
 
 <div ng-app="" ng-init="firstName='Durga';lastName='T'">
